@@ -1,6 +1,8 @@
 .nav {
   display: flex;
-  gap: 4px;
+  gap: 10px;
+  margin: 15px;
+  font-size: 20px;
 }
 
 .link {
@@ -13,5 +15,5 @@
 }
 
 .active {
-  color: orange;
+  color: rgb(255, 0, 170);
 }

@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { getSearchMovies } from "../../components/api";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
-// import { ItemList } from "../../components/ItemList/ItemList";
-import { MagnifyingGlass } from "react-loader-spinner";
+import { MovieList } from "../../components/MovieList/MovieList";
+import { Loader } from "../../components/Loader/Loader";
 import { useSearchParams } from "react-router-dom";
 import { LoadMoreBtn } from "../../components/LoadMoreBtn/LoadMoreBtn";
 import css from "./MoviesPage.module.css";
 
-const MoviesPage = () => {
+export default function MoviesPage() {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -63,24 +63,11 @@ const MoviesPage = () => {
     <div className={css.parallax}>
       <SearchBar onSubmit={searchMovies} />
       {error && <ErrorMessage />}
-      {loading && (
-        <MagnifyingGlass
-          visible={true}
-          height="80"
-          width="80"
-          ariaLabel="magnifying-glass-loading"
-          wrapperStyle={{}}
-          wrapperClass="magnifying-glass-wrapper"
-          glassColor="#c0efff"
-          color="#acaaa7"
-        />
-      )}
-      {movies.length > 0 && <ItemList data={movies} />}
+      {loading && <Loader />}
+      {movies.length > 0 && <MovieList movies={movies} />}
       {movies.length > 0 && !loading && page !== totalPages && (
         <LoadMoreBtn onClick={handleLoadMore} />
       )}
     </div>
   );
-};
-
-export default MoviesPage;
+}

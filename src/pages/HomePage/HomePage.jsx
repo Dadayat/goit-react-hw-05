@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getMovies } from "../../components/api";
 import { Loader } from "../../components/Loader/Loader";
 import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
+import css from "./HomePage.module.css";
 
 export default function HomePage() {
   const [movies, setMovies] = useState([]);
@@ -31,22 +32,25 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div>
+    <div className={css.font}>
       {isLoading && <Loader />}
       {error && <ErrorMessage />}
+      <h1>Day trends</h1>
       {movies.length > 0 && (
-        <ul>
+        <ul className={css.list}>
           {movies.map((movie) => (
-            <li key={movie.id}>
+            <li className={css.listItem} key={movie.id}>
               <Link to={`/movies/${movie.id}`}>
                 <img
                   src={baseUrl + movie.poster_path}
                   alt={movie.title}
+                  className={css.img}
                   //   className={css.poster}
                 />
               </Link>
               <Link
                 to={`/movies/${movie.id}`}
+                className={css.titleLink}
 
                 // className={css.link}
               >

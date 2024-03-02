@@ -5,9 +5,9 @@
 }
 
 body {
-  color: rgb(227, 174, 147);
+  color: rgb(70, 1, 53);
   margin: 0;
-  background: radial-gradient(circle, #5d1a78, #414b50);
+  background: radial-gradient(circle, #1c3964, #d4dee4);
 }
 
 button:hover,
@@ -22,7 +22,6 @@ ul {
 }
 
 header {
-  background: linear-gradient(45deg, rgb(138, 19, 45), rgb(236, 47, 35));
   padding-top: 15px;
   padding-bottom: 15px;
   padding-left: 20px;

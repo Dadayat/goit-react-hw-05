@@ -35,35 +35,37 @@ export default function MovieDetailsPage() {
   }, [movieId]);
   return (
     <div>
-      <h1>MovieDetailsPage</h1>
       {error && <p>Opppps, error</p>}
       {movie && (
-        <div>
-          <img
-            src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-            alt={movie.title}
-          />
-          <h1>{movie.title}</h1>
-          <p>{movie.overview}</p>
-          <p>User score: {movie.vote_average}</p>
-
-          <h2>Genres:</h2>
-          {movie.genres && (
-            <p>{movie.genres.map((genre) => genre.name).join(", ")}</p>
-          )}
-          <h2>Additional information</h2>
-          <ul>
-            <li>
-              <NavLink to="cast" className={buildLinkClass}>
-                Cast
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="reviews" className={buildLinkClass}>
-                Reviews
-              </NavLink>
-            </li>
-          </ul>
+        <div className={css.wrap}>
+          <div>
+            <img
+              src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+              alt={movie.title}
+            />
+          </div>
+          <div>
+            <h1>{movie.title}</h1>
+            <p>{movie.overview}</p>
+            <p>User score: {movie.vote_average}</p>
+            <h2>Genres:</h2>
+            {movie.genres && (
+              <p>{movie.genres.map((genre) => genre.name).join(", ")}</p>
+            )}
+            <h2>Additional information</h2>
+            <ul>
+              <li>
+                <NavLink to="cast" className={buildLinkClass}>
+                  Cast
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="reviews" className={buildLinkClass}>
+                  Reviews
+                </NavLink>
+              </li>
+            </ul>
+          </div>
         </div>
       )}
     </div>

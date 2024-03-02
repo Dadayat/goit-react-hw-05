@@ -1,0 +1,39 @@
+.font {
+  background: url("/src/assets/6249972.jpg");
+  min-height: 100vh;
+  width: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+}
+
+.title {
+  background-image: radial-gradient(circle, #5d1a78, #414b50);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  row-gap: 20px;
+}
+
+.listItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc((100% - 15px) / 4);
+}
+
+.titleLink {
+  text-decoration: none;
+  font-size: 30px;
+  color: rgb(99, 1, 50);
+}
