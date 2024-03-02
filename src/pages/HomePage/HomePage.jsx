@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getMovies } from "../api";
+import { getMovies } from "../../components/api";
+import { Loader } from "../../components/Loader/Loader";
+import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
 
-export default function MoviesPage() {
+export default function HomePage() {
   const [movies, setMovies] = useState([]);
-
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const baseUrl = "https://image.tmdb.org/t/p/w200";
 
@@ -30,8 +32,8 @@ export default function MoviesPage() {
 
   return (
     <div>
-      <h1>Movies</h1>
-      {error && <p>Opppps, error</p>}
+      {isLoading && <Loader />}
+      {error && <ErrorMessage />}
       {movies.length > 0 && (
         <ul>
           {movies.map((movie) => (
