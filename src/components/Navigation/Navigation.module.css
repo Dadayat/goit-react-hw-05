@@ -15,5 +15,6 @@
 }
 
 .active {
-  color: rgb(255, 0, 170);
+  color: #8724ad;
+  font-weight: bold;
 }

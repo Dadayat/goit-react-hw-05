@@ -1,18 +1,23 @@
-import { useEffect, useState } from "react";
-import { useParams, NavLink } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
+import { useParams, NavLink, Outlet, useLocation } from "react-router-dom";
 import { getMovieByID } from "../../components/api";
 import clsx from "clsx";
 import css from "./MovieDetailsPage.module.css";
+import { Loader } from "../../components/Loader/Loader";
+import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
+import { GoBackLink } from "../../components/GoBackLink/GoBackLink";
 
 const buildLinkClass = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);
 };
 
 export default function MovieDetailsPage() {
+  const location = useLocation();
+  const goBackLinkRef = useRef(location.state);
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(false);
-  //   console.log(params);
+
   useEffect(() => {
     const controller = new AbortController();
     async function fetchData() {
@@ -33,39 +38,50 @@ export default function MovieDetailsPage() {
       controller.abort();
     };
   }, [movieId]);
+  if (!movie) {
+    return <Loader />;
+  }
+  const movieYear = movie.release_date.split("-")[0];
   return (
-    <div>
-      {error && <p>Opppps, error</p>}
+    <div className={css.font}>
+      {error && <ErrorMessage />}
       {movie && (
-        <div className={css.wrap}>
-          <div>
-            <img
-              src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-              alt={movie.title}
-            />
+        <div>
+          <GoBackLink href={goBackLinkRef.current ?? "/movies"}>
+            Back to search movies
+          </GoBackLink>
+          <div className={css.wrap}>
+            <div>
+              <img
+                src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+                alt={movie.title}
+              />
+            </div>
+            <div>
+              <h1>{movie.title}</h1>
+              <h2>{movieYear}</h2>
+              <p>{movie.overview}</p>
+              <p>User score: {movie.vote_average}</p>
+              <h2>Genres:</h2>
+              {movie.genres && (
+                <p>{movie.genres.map((genre) => genre.name).join(", ")}</p>
+              )}
+              <h3>Additional information</h3>
+              <ul className={css.navList}>
+                <li>
+                  <NavLink to="cast" className={buildLinkClass}>
+                    Cast
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="reviews" className={buildLinkClass}>
+                    Reviews
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div>
-            <h1>{movie.title}</h1>
-            <p>{movie.overview}</p>
-            <p>User score: {movie.vote_average}</p>
-            <h2>Genres:</h2>
-            {movie.genres && (
-              <p>{movie.genres.map((genre) => genre.name).join(", ")}</p>
-            )}
-            <h2>Additional information</h2>
-            <ul>
-              <li>
-                <NavLink to="cast" className={buildLinkClass}>
-                  Cast
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="reviews" className={buildLinkClass}>
-                  Reviews
-                </NavLink>
-              </li>
-            </ul>
-          </div>
+          <Outlet />
         </div>
       )}
     </div>

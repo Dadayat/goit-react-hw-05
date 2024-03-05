@@ -1,4 +1,25 @@
+.font {
+  background: url("/src/assets/6249972.jpg");
+  min-height: 100vh;
+  width: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 15px;
+}
+
 .wrap {
   display: flex;
   gap: 20px;
+}
+
+.navList {
+  display: flex;
+  gap: 20px;
+}
+
+.active {
+  color: #8724ad;
+  font-weight: bold;
 }

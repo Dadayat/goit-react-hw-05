@@ -41,8 +41,9 @@ export default function MoviesPage() {
         const fetchedData = await getSearchMovies(query, page, {
           abortController: controller,
         });
+
         setMovies((prevMovies) => [...prevMovies, ...fetchedData]);
-        setTotalPages(fetchedData.total_pages);
+        setTotalPages(fetchedData.length);
       } catch (error) {
         if (error.code !== "ERR_CANCELED") {
           setError(true);
@@ -60,13 +61,16 @@ export default function MoviesPage() {
   }, [params, page]);
 
   return (
-    <div className={css.parallax}>
+    <div className={css.font}>
       <SearchBar onSubmit={searchMovies} />
+
       {error && <ErrorMessage />}
       {loading && <Loader />}
       {movies.length > 0 && <MovieList movies={movies} />}
-      {movies.length > 0 && !loading && page !== totalPages && (
-        <LoadMoreBtn onClick={handleLoadMore} />
+      {movies.length > 0 && !loading && page < totalPages && (
+        <LoadMoreBtn onClick={handleLoadMore} disabled={loading}>
+          {loading ? "loading..." : "LOAD MORE"}
+        </LoadMoreBtn>
       )}
     </div>
   );

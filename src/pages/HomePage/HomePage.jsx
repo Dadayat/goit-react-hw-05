@@ -13,6 +13,7 @@ export default function HomePage() {
   const baseUrl = "https://image.tmdb.org/t/p/w200";
 
   useEffect(() => {
+    setIsLoading(true);
     const controller = new AbortController();
     async function fetchData() {
       try {
@@ -23,6 +24,8 @@ export default function HomePage() {
           console.log(error);
           setError(true);
         }
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchData();
@@ -48,12 +51,7 @@ export default function HomePage() {
                   //   className={css.poster}
                 />
               </Link>
-              <Link
-                to={`/movies/${movie.id}`}
-                className={css.titleLink}
-
-                // className={css.link}
-              >
+              <Link to={`/movies/${movie.id}`} className={css.titleLink}>
                 {movie.title}
               </Link>
             </li>

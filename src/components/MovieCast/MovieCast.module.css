@@ -1,0 +1,26 @@
+.contsiner {
+  text-align: center;
+  margin-top: 35px;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.listItem {
+  width: calc((100% - 20px) / 5);
+}
+
+.text {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.img {
+  width: 200px;
+  height: 300px;
+}
