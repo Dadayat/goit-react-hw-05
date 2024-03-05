@@ -21,4 +21,12 @@
 .img {
   width: 200px;
   height: 300px;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.7s ease-in-out;
+}
+
+.img:hover,
+.img:focus {
+  transform: scale(1.1);
+  box-shadow: rgba(32, 1, 43, 0.973) 30px 15px 90px;
 }
