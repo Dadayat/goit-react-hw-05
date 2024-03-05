@@ -17,8 +17,14 @@ export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const baseUrl = "https://image.tmdb.org/t/p/w300";
+  const defaultImg =
+    "https://dl-media.viber.com/10/share/2/long/vibes/icon/image/0x0/95e0/5688fdffb84ff8bed4240bcf3ec5ac81ce591d9fa9558a3a968c630eaba195e0.jpg";
 
   useEffect(() => {
+    setIsLoading(true);
     const controller = new AbortController();
     async function fetchData() {
       try {
@@ -31,6 +37,8 @@ export default function MovieDetailsPage() {
           console.log(error);
           setError(true);
         }
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchData();
@@ -44,6 +52,7 @@ export default function MovieDetailsPage() {
   const movieYear = movie.release_date.split("-")[0];
   return (
     <div className={css.font}>
+      {isLoading && <Loader />}
       {error && <ErrorMessage />}
       {movie && (
         <div>
@@ -53,7 +62,9 @@ export default function MovieDetailsPage() {
           <div className={css.wrap}>
             <div>
               <img
-                src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+                src={
+                  movie.poster_path ? baseUrl + movie.poster_path : defaultImg
+                }
                 alt={movie.title}
               />
             </div>

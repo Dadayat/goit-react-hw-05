@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getReviews } from "../api";
 import { ErrorMessage } from "..//ErrorMessage/ErrorMessage";
+import { Loader } from "../Loader/Loader";
 import css from "./MovieReviews.module.css";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
   const [reviews, setReview] = useState([]);
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     const controller = new AbortController();
 
     async function fetchData() {
@@ -22,6 +25,8 @@ const MovieReviews = () => {
         if (error.code !== "ERR_CANCELED") {
           setError(true);
         }
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchData();
@@ -47,6 +52,7 @@ const MovieReviews = () => {
           Sorry, There are no reviews of this movie 😣
         </p>
       )}
+      {isLoading && <Loader />}
       {error && <ErrorMessage />}
     </div>
   );

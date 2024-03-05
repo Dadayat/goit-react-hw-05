@@ -42,8 +42,8 @@ export default function MoviesPage() {
           abortController: controller,
         });
 
-        setMovies((prevMovies) => [...prevMovies, ...fetchedData]);
-        setTotalPages(fetchedData.length);
+        setMovies((prevMovies) => [...prevMovies, ...fetchedData.results]);
+        setTotalPages(fetchedData.total_pages);
       } catch (error) {
         if (error.code !== "ERR_CANCELED") {
           setError(true);

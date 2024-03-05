@@ -46,7 +46,7 @@ export const getSearchMovies = async (query, page, { abortController }) => {
     }
   );
 
-  return response.data.results;
+  return response.data;
 };
 
 export const getReviews = async (movieId, { abortController }) => {
